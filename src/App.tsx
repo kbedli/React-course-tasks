@@ -43,10 +43,8 @@ function App() {
               <ErrorBoundary>{/* <AuthInfo /> */}</ErrorBoundary>
             </ThemeContextProvider>
           </Provider>
-          <UsersData />
-          <BrandContextProvider>
-            <ChooseBrand />
-          </BrandContextProvider>
+          {/* <UsersData /> */}
+          <BrandContextProvider>{/* <ChooseBrand /> */}</BrandContextProvider>
           <ReactQueryDevtools initialIsOpen={true} />
         </QueryClientProvider>
       </ErrorBoundary>
