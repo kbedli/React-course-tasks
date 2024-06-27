@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import { ClothesDto, CreateClothesDto } from "../types/Clothes";
-import { toast } from "react-toastify";
 
 const API_BASE_URL = "https://api.airtable.com/v0/appTawWCGSjVgGU1h/Clothes";
 
