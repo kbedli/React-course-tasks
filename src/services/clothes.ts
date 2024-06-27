@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { ClothesDto, CreateClothesDto } from "../types/Clothes";
+import { toast } from "react-toastify";
 
 const API_BASE_URL = "https://api.airtable.com/v0/appTawWCGSjVgGU1h/Clothes";
 
@@ -10,9 +11,12 @@ const headers = {
 
 export const fetchClothes = async (): Promise<ClothesDto[]> => {
   try {
-    const response: AxiosResponse = await axios.get(`${API_BASE_URL}`, {
-      headers,
-    });
+    const response: AxiosResponse = await axios.get<ClothesDto[]>(
+      `${API_BASE_URL}`,
+      {
+        headers,
+      }
+    );
 
     const responseData: ClothesDto[] = response.data.records;
 
@@ -38,7 +42,7 @@ export const fetchClothes = async (): Promise<ClothesDto[]> => {
 export const createClothes = async (data: CreateClothesDto): Promise<void> => {
   try {
     const responseData = { records: [{ fields: data }] };
-    const response: AxiosResponse = await axios.post(
+    const response: AxiosResponse = await axios.post<ClothesDto[]>(
       "https://api.airtable.com/v0/appTawWCGSjVgGU1h/Clothes",
       responseData,
       {
@@ -50,4 +54,46 @@ export const createClothes = async (data: CreateClothesDto): Promise<void> => {
   } catch (error) {
     throw new Error("Invalid response");
   }
+};
+
+export const editClothes = async (
+  id: string | undefined,
+  data: CreateClothesDto
+): Promise<void> => {
+  if (!id) {
+    throw new Error("Invalid id");
+  }
+
+  try {
+    const responseData = {
+      fields: data,
+    };
+    const response: AxiosResponse = await axios.put(
+      `${API_BASE_URL}/${id}`,
+      responseData,
+      {
+        headers,
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error("Invalid response");
+  }
+};
+
+export const fetchCloth = (
+  id: ClothesDto["id"] | undefined
+): Promise<ClothesDto> => {
+  if (!id) {
+    throw new Error("Invalid id");
+  }
+  return fetch(`${API_BASE_URL}/${id}`, {
+    headers,
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error("Invalid response");
+  });
 };

@@ -7,7 +7,7 @@ export type Clothes = {
 };
 
 export type ClothesDto = {
-  id: number;
+  id: number | string;
   fields: {
     name: string;
     description: string;

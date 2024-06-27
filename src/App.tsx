@@ -8,7 +8,7 @@ import { ComponentGenerator } from "./components/ComponentGenerator";
 // import { Counter } from "./components/Counter";
 import { DynamicForm } from "./components/DynamicForm/DynamicForm";
 import { FormWizard } from "./components/FormWizard";
-import { UsersData } from "./components/SortData/UsersData";
+import { UsersData } from "./components/SortData/SortData";
 
 import { ThemeContextProvider } from "./components/Theme/ThemeContext";
 import { ThemeSwitcher } from "./components/Theme/ThemeSwitcher";
@@ -21,34 +21,36 @@ import { BrandContextProvider } from "./components/PreferredBrand/BrandContext";
 import { AddUser } from "./components/AppUsers/AddUser2";
 import { store } from "./store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrandProvider } from "./components/Brand/BrandContext";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <>
-      <ErrorBoundary
-        fallback={<p className="dark:text-slate-300">General Error</p>}
-      >
-        <QueryClientProvider client={queryClient}>
-          {/* The rest of your application */}
+      <BrandProvider>
+        <ErrorBoundary
+          fallback={<p className="dark:text-slate-300">General Error</p>}
+        >
+          <QueryClientProvider client={queryClient}>
+            {/* The rest of your application */}
 
-          <Provider store={store}>
-            {/* <ViewPort /> */}
-            <ThemeContextProvider>
-              <ThemeSwitcher />
-              <AuthContextProvider>
-                <RouterProvider router={router} />
-              </AuthContextProvider>
-              <ErrorBoundary>{/* <AuthInfo /> */}</ErrorBoundary>
-            </ThemeContextProvider>
-          </Provider>
-          {/* <UsersData /> */}
-          <BrandContextProvider>{/* <ChooseBrand /> */}</BrandContextProvider>
-          <ReactQueryDevtools initialIsOpen={true} />
-        </QueryClientProvider>
-      </ErrorBoundary>
-      {/* <AddUser /> */}
+            <Provider store={store}>
+              {/* <ViewPort /> */}
+              <ThemeContextProvider>
+                <ThemeSwitcher />
+                <AuthContextProvider>
+                  <RouterProvider router={router} />
+                </AuthContextProvider>
+                {/* <ErrorBoundary><AuthInfo /></ErrorBoundary> */}
+              </ThemeContextProvider>
+            </Provider>
+            {/* <UsersData /> */}
+
+            <ReactQueryDevtools initialIsOpen={true} />
+          </QueryClientProvider>
+        </ErrorBoundary>
+      </BrandProvider>
     </>
   );
 }

@@ -11,6 +11,8 @@ import { ProductDetailsPage } from "./pages/ProductsDetailsPage";
 import { CreateProductPage } from "./pages/CreateProductPage";
 import { Module4 } from "./pages/Module4";
 import { CreateClothesPage } from "./pages/CreateClothesPage";
+import { Module3 } from "./pages/Module3";
+import { EditClothesPage } from "./pages/EditClothesPage";
 
 export const routes = {
   HOME: {
@@ -46,6 +48,12 @@ export const routes = {
   CREATE_CLOTHES: {
     path: "/clothes/create",
   },
+  EDIT_CLOTHES: {
+    path: "/clothes/edit/:id",
+  },
+  MODULE_3: {
+    path: "/module3",
+  },
 };
 
 export const router = createBrowserRouter([
@@ -64,6 +72,8 @@ export const router = createBrowserRouter([
       { path: routes.CREATE_PRODUCT.path, element: <CreateProductPage /> },
       { path: routes.CLOTHES.path, element: <Module4 /> },
       { path: routes.CREATE_CLOTHES.path, element: <CreateClothesPage /> },
+      { path: routes.MODULE_3.path, element: <Module3 /> },
+      { path: routes.EDIT_CLOTHES.path, element: <EditClothesPage /> },
     ],
   },
 ]);
